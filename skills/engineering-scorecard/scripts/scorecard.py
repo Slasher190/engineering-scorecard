@@ -651,6 +651,7 @@ def cmd_report(cfg, args):
     devs = json.loads(dev_path.read_text())
     feats = json.loads(feat_path.read_text()) if feat_path.exists() else {"rows": []}
     D, F = devs["rows"], feats["rows"]
+    title = cfg.raw.get("title") or f"{cfg.company} Engineering Scorecard"
     w = devs["weights"]
     params = [(f"s_{k}", f"{LABELS.get(k, k)} {round(v*100)}%", v) for k, v in w.items()]
     fw = feats.get("weights", FEATURE_WEIGHTS)
@@ -680,7 +681,7 @@ def cmd_report(cfg, args):
                  ("test_lines", "Test lines", "r"), ("score", "Score", "r"), ("what", "What it does", "l wrap")]
     below = devs.get("below_min_commits", [])
     sections = [
-        f'<header><h1>{esc(cfg.company)} Engineering Scorecard</h1><p class="lede">{sentence}</p>'
+        f'<header><h1>{esc(title)}</h1><p class="lede">{sentence}</p>'
         f'<p class="sub">Scored from the git history of {len(devs["repos"])} repos ({esc(", ".join(devs["repos"]))}) up to {esc(devs["as_of"])}. '
         f'Each developer gets eight scores out of 100, weighted into one overall score.</p></header>',
         f'<section class="podium">{podium}</section>',
@@ -707,7 +708,7 @@ def cmd_report(cfg, args):
         f'<details class="card"><summary>How the scores are worked out, and what they miss</summary><dl>{method}'
         f'<dt>Feature score</dt><dd>{esc(METHOD["feature"])}</dd></dl><ul>'
         + "".join(f"<li>{esc(n)}</li>" for n in CAVEATS + notes) + "</ul></details>")
-    page = REPORT_TEMPLATE.replace("{{TITLE}}", esc(f"{cfg.company} Engineering Scorecard")).replace("{{BODY}}", "\n".join(sections))
+    page = REPORT_TEMPLATE.replace("{{TITLE}}", esc(title)).replace("{{BODY}}", "\n".join(sections))
     (out / "report.html").write_text(page)
     print(f"wrote {out / 'report.html'}", file=sys.stderr)
 
@@ -749,7 +750,7 @@ svg text{font-family:inherit;font-size:12px;fill:var(--muted)}svg .name,svg .tot
 svg .grid{stroke:var(--line)}.scroll{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:.8rem;font-variant-numeric:tabular-nums}
 th,td{padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;text-align:right}th{color:var(--muted);font-weight:600}
-.l{text-align:left}.wrap{white-space:normal;min-width:220px}
+.l{text-align:left}.wrap{white-space:normal;min-width:360px;max-width:560px}
 details summary{cursor:pointer;font-weight:600}dt{font-weight:600;margin-top:8px}dd{margin:0;color:var(--muted);max-width:80ch}
 details ul{color:var(--muted);max-width:80ch}
 </style></head><body><main>

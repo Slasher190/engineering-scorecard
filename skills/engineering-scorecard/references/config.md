@@ -4,7 +4,8 @@ Only `repos` is required. Paths are relative to the config file unless absolute.
 
 ```jsonc
 {
-  "company": "Acme",                 // report title
+  "company": "Acme",                 // used in the report title
+  "title": "Acme Engineering Scorecard",   // optional; overrides the report title
   "as_of": "2026-11-14",             // date shown in the report (default: today)
   "repos": [
     // A local clone. label is how the repo is named everywhere else.
