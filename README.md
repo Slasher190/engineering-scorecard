@@ -2,6 +2,8 @@
 
 A Claude skill that scores your company's developers and its most complex features out of 100, straight from git history.
 
+**[Live demo report →](https://slasher190.github.io/engineering-scorecard/examples/roinet/report.html)**
+
 Point it at your repos, local clones or GitHub repos it reads through the API without cloning, and it produces:
 
 - **A developer ranking** on eight weighted parameters: difficulty of the code they wrote, hard-feature output, volume, breadth, ownership, tests, consistency and commit hygiene.
@@ -20,7 +22,7 @@ The scripts do the counting, deterministically.
 
 [`examples/roinet`](examples/roinet) is a real run across seven repos at Roinet, with developer names replaced by their rank:
 - **Screenshots:** the [overview](examples/roinet/screenshots/overview.png) and the [feature ranking](examples/roinet/screenshots/features.png).
-- **The full report:** [`report.html`](examples/roinet/report.html). Download it and open it in a browser.
+- **The full report:** [view it live](https://slasher190.github.io/engineering-scorecard/examples/roinet/report.html), or download [`report.html`](examples/roinet/report.html) and open it in a browser.
 
 ## Install
 
