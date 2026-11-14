@@ -1,0 +1,14 @@
+{
+  "company": "Acme",
+  "as_of": "",
+  "repos": [
+    {"label": "api", "path": "/absolute/path/to/acme-api"},
+    {"label": "web", "path": "/absolute/path/to/acme-web"},
+    {"label": "auth", "github": "acme/auth-service", "branch": "main"}
+  ],
+  "aliases": {},
+  "exclude_authors": [],
+  "vendored": [],
+  "tiers": [],
+  "features": []
+}

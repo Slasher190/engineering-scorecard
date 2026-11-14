@@ -1,0 +1,10 @@
+{
+  "name": "engineering-scorecard",
+  "version": "1.0.0",
+  "description": "Score your developers and most complex features out of 100 from git history across local and GitHub repos, with a self-contained HTML report.",
+  "author": {"name": "Slasher190", "url": "https://github.com/Slasher190"},
+  "homepage": "https://github.com/Slasher190/engineering-scorecard",
+  "repository": "https://github.com/Slasher190/engineering-scorecard",
+  "license": "MIT",
+  "keywords": ["git", "analytics", "engineering", "scorecard", "contributors", "complexity"]
+}
