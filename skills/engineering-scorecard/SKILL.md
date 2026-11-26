@@ -33,7 +33,7 @@ Ask which repos to include, or find them: local paths, plus GitHub `owner/name` 
 Look for shared history before you write the config, because counting the same change twice inflates whoever wrote it:
 
 - A parent repo with git submodules, or a monorepo that was later split, often carries the children's history under `child/` paths. List those as `subtrees` on the parent (`{"server/": "server"}`). The script then credits each change once, to the child repo.
-- A package copied (vendored) from one repo into another goes in `vendored`.
+- A package copied (vendored) from one repo into another goes in `vendored`. So does a repo or folder that was seeded by copying another team's code. Check big first commits ("from X", "copy of", "port") and compare a few files with the original. If most lines match, list the copied folder in `vendored`, so the copier isn't credited with the original author's work.
 
 ### 2. Write the config
 

@@ -20,7 +20,7 @@ The scripts do the counting, deterministically.
 
 ## Example
 
-[`examples/roinet`](examples/roinet) is a real run across seven repos at Roinet, with developer names replaced by their rank:
+[`examples/roinet`](examples/roinet) is a real run across nine repos at Roinet, with developer names replaced by their rank:
 - **Screenshots:** the [overview](examples/roinet/screenshots/overview.png) and the [feature ranking](examples/roinet/screenshots/features.png).
 - **The full report:** [view it live](https://slasher190.github.io/engineering-scorecard/examples/roinet/report.html), or download [`report.html`](examples/roinet/report.html) and open it in a browser.
 

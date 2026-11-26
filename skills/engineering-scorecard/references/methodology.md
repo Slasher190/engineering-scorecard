@@ -12,7 +12,7 @@
 ## 1. Which lines count
 
 - **Lines added** come from `git log --numstat` across all branches (or the GitHub commits API), with merges skipped.
-- **Generated and data files are skipped:** lockfiles, build output (`dist`, `build`, `target`, `.next`), `node_modules`, vendor folders, logs, images and fonts, plus JSON, CSV, Markdown, HTML, YAML and other data or docs formats.
+- **Generated and data files are skipped:** lockfiles, build output (`dist`, `build`, `target`, `.next`), `node_modules`, vendor folders, logs, images and fonts, plus JSON, CSV, Markdown, HTML, YAML and other data or docs formats. Generated code is skipped too (gqlgen `generated.go`, `*_gen.go`, protobuf output, `__generated__/` and `generated/` folders), as are data tables stored as code (`*.data.ts`) and `mock_data/` folders.
 - **Infrastructure files are kept** even when their extension would be skipped: Terraform and HCL, CI workflows (`.github/`, GitLab CI, CircleCI), Dockerfiles and compose files, deploy scripts, Kubernetes and Helm, systemd units, monitoring config. Terraform state and example env files are skipped.
 - **Each file change counts once,** keyed by author, date, commit title, the repo it belongs to, its path there and its line count. That removes the same commit on several branches, and a parent repo's copies of its subtrees' history (`subtrees` in the config). Vendored copies are dropped by `vendored`.
 - **Commits count when at least one of their file changes is new.**

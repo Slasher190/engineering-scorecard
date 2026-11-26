@@ -29,7 +29,10 @@ from pathlib import Path
 SKIP = (r"(^|/)(dist|build|out|target|vendor|third_party|logs?|node_modules|\.next|\.nuxt|coverage|__pycache__|"
         r"\.npm-cache|\.pnpm-store|tmp|\.gradle|\.expo|\.terraform|\.venv|venv)/|lock|"
         r"\.(json|csv|tsv|html?|md|mdx|rst|txt|svg|snap|log|map|ya?ml|png|jpe?g|webp|gif|ico|pdf|xlsx?|pptx?|docx?|"
-        r"mp4|mov|mp3|wav|zip|gz|tar|woff2?|ttf|eot|tfstate|example|sample)$|\.min\.")
+        r"mp4|mov|mp3|wav|zip|gz|tar|woff2?|ttf|eot|tfstate|example|sample|sum)$|\.min\.|"
+        # generated code: gqlgen, protobuf, codegen output
+        r"(^|/)(generated\.go|[^/]*_gen\.go|[^/]*\.pb\.go|[^/]*_pb2(_grpc)?\.py|[^/]*\.generated\.[jt]sx?|"
+        r"[^/]*\.g\.dart|[^/]*\.freezed\.dart|[^/]*\.data\.[jt]sx?)$|(^|/)(__generated__|generated|gen|mock_data)/")
 # Infra and delivery files are kept even when their extension (yml, json) would be skipped as data.
 INFRA = (r"(^|/)(\.github/|\.gitlab-ci|\.circleci/|infra/|infrastructure/|terraform/|deploy/|deployment/|k8s/|"
          r"kubernetes/|helm/|charts/|monitoring/|docker/|ansible/|pulumi/)|"
@@ -515,7 +518,9 @@ def cmd_features(cfg, args):
         for p in f["paths"]:
             repo = cfg.repo(p["repo"])
             folder = p["path"].strip("/")
-            ok = lambda rel: (code_rx.search(rel) or (infra and conf_rx.search(rel))) and not junk.search(rel)
+            vend = [vr for vl, vr in cfg.vendored if vl == p["repo"]]
+            ok = lambda rel: not junk.search(rel) and not any(v.search(rel) for v in vend) and (
+                (code_rx.search(rel) and not cfg.skip.search(rel)) or (infra and conf_rx.search(rel)))
             if "github" in repo:
                 blobs, _ = gh_tree(cfg, repo, out)
                 hits = [b for b in blobs if (b["path"] == folder or b["path"].startswith(folder + "/")) and ok(b["path"])]
